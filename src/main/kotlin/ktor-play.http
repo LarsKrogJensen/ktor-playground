@@ -1,0 +1,3 @@
+POST localhost:8080/json
+Content-Type: application/json
+{"foo": "yes", "bar": "ok"}
