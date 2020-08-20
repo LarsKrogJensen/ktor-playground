@@ -1,7 +1,11 @@
 POST localhost:8080/json
 Content-Type: application/json
+
 {"foo": "yes", "bar": "ok"}
 
 
 ###
 GET localhost:8080/bad
+
+###
+GET localhost:8080/params/1234/x?y=5

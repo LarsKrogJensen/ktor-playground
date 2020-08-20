@@ -20,10 +20,10 @@ import java.util.*
 private val log: Logger = LoggerFactory.getLogger("Main")
 
 @Serializable
-data class DataIn(val foo: String = "foooo", val bar: String)
+data class DataIn(val foo: String = "foooo", val bar: String, val xyz: Int? = null)
 
 @Serializable
-data class DataUt(val foo: String, val bar: String)
+data class DataUt(val foo: String, val bar: String, val xyz: Int? = null)
 
 fun main() {
     val server = embeddedServer(Netty, port = 8080) {
@@ -47,12 +47,22 @@ fun main() {
                     call.respond(HttpStatusCode.InternalServerError, "Opps ${t.message}")
                 }
             }
-            post("/json") {
+            post("json") {
                 val dataIn = call.receive<DataIn>()
-                call.respond(DataUt(foo = dataIn.foo, bar = dataIn.bar))
+                call.respond(DataUt(foo = dataIn.foo, bar = dataIn.bar, xyz = dataIn.xyz))
             }
-            get("/bad") {
+            get("bad") {
                 throw InvalidPropertiesFormatException("neeej")
+            }
+            route("nested") {
+                get {
+                    call.respond("nested get")
+                }
+                route("x") {
+                    get {
+                        call.respond("nested X get ")
+                    }
+                }
             }
         }
     }
