@@ -10,10 +10,9 @@ import io.ktor.server.netty.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.slf4j.event.Level
 import java.util.*
 
 
@@ -28,6 +27,19 @@ data class DataUt(val foo: String, val bar: String, val xyz: Int? = null)
 fun main() {
     val server = embeddedServer(Netty, port = 8080) {
         routing {
+            install(CallLogging) {
+                level = Level.INFO
+
+            }
+            install(CallId) {
+//                retrieve {
+//                    it.request.queryParameters["callId"]
+//                }
+                header("XTracy") // header in & out
+                generate {
+                  UUID.randomUUID().toString()
+                }
+            }
             install(ContentNegotiation) {
                 json(json = Json {
                     prettyPrint = true
@@ -60,7 +72,7 @@ fun main() {
                 }
                 route("x") {
                     get {
-                        call.respond("nested X get ")
+                        call.respond("nested X get call Id: ${call.callId}")
                     }
                 }
             }
