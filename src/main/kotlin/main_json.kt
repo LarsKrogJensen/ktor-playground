@@ -96,7 +96,7 @@ fun main() {
     log.info("Server started")
 }
 
-object BigDecimalSerializer : KSerializer<BigDecimal> {
+internal object BigDecimalSerializer : KSerializer<BigDecimal> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BigDecimal", PrimitiveKind.STRING)
     override fun serialize(encoder: Encoder, value: BigDecimal) = encoder.encodeString(value.toString())
     override fun deserialize(decoder: Decoder): BigDecimal = BigDecimal(decoder.decodeString())
