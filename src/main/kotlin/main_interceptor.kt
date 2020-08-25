@@ -4,6 +4,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.util.pipeline.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
@@ -13,9 +14,28 @@ private val log: Logger = LoggerFactory.getLogger("Main")
 
 fun main() {
     val server = embeddedServer(Netty, port = 8080) {
+        intercept(ApplicationCallPipeline.Call) {
+            println("interceptor 1")
+        }
         routing {
-            get("/hello") {
-              call.respondText("Hellp", ContentType.Text.Plain)
+            intercept(ApplicationCallPipeline.Call) {
+                println("interceptor 2")
+            }
+            route("/hello") {
+                intercept(ApplicationCallPipeline.Call) {
+                    println("interceptor 3")
+                }
+                get {
+                    println("hello")
+                    call.respondText("Hellp", ContentType.Text.Plain)
+                }
+
+            }
+            route("/world") {
+                get {
+                    println("World")
+                    call.respond("World")
+                }
             }
         }
     }
