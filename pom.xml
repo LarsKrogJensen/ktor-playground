@@ -12,9 +12,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.4.0</kotlin.version>
-        <serialization.version>1.0.0-RC</serialization.version>
-        <ktor.version>1.4.0</ktor.version>
+        <kotlin.version>1.4.10</kotlin.version>
+<!--        <serialization.version>1.0.0-RC</serialization.version>-->
+        <ktor.version>1.4.1</ktor.version>
         <junit.version>4.12</junit.version>
     </properties>
 
@@ -41,6 +41,13 @@
             <version>${ktor.version}</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+            <version>2.0.34.Final</version>
+        </dependency>
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>

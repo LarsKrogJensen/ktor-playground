@@ -14,12 +14,7 @@ private val log: Logger = LoggerFactory.getLogger("Main")
 fun main() {
     val env = applicationEngineEnvironment {
         module {
-            main()
-        }
-        // Private API
-        connector {
-            host = "0.0.0.0"
-            port = 9090
+            mainModule()
         }
         // Public API
         connector {
@@ -35,7 +30,7 @@ fun main() {
     log.info("Server started")
 }
 
-fun Application.main() {
+fun Application.mainModule() {
     routing {
         get("/hello") {
             call.respondText("Hellp", ContentType.Text.Plain)
