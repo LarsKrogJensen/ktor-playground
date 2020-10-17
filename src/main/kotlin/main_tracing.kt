@@ -10,6 +10,7 @@ import io.ktor.server.netty.*
 import kotlinx.coroutines.time.delay
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.slf4j.event.Level
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -25,6 +26,7 @@ fun main() {
     
     val server = embeddedServer(Netty, port = 8080) {
         install(CallLogging) {
+            level = Level.INFO
             mdc("appKey") { "BVS" }
             mdc("requestId") { it.request.header("X_Request_Id") ?: UUID.randomUUID().toString() }
             mdc("flowId") { it.request.header("X_Flow_Id") ?: "-" }
