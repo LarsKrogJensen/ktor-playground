@@ -72,6 +72,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>me.larkro</groupId>
+            <artifactId>kttp-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
