@@ -23,8 +23,10 @@ fun main() {
         .serviceLookup { "http://localhost:8080" }
         .build()
 
-    
     val server = embeddedServer(Netty, port = 8080) {
+        install(Compression) {
+            gzip()
+        }
         install(CallLogging) {
             level = Level.INFO
             mdc("appKey") { "BVS" }
