@@ -73,9 +73,9 @@
         </dependency>
 
         <dependency>
-            <groupId>me.larkro</groupId>
+            <groupId>com.kambi.kazbi</groupId>
             <artifactId>kttp-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>3.0-SB-76346-kazbi-extract-http-client-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

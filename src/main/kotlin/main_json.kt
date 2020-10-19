@@ -93,6 +93,7 @@ fun main() {
         }
     }
     server.start()
+//    server.stop()
     log.info("Server started")
 }
 
