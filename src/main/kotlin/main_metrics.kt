@@ -15,47 +15,47 @@ import java.util.concurrent.TimeUnit.SECONDS
 private val log: Logger = LoggerFactory.getLogger("Main")
 
 fun main() {
-    val metricRegistry = MetricRegistry()
-    JmxReporter.forRegistry(metricRegistry)
-        .convertRatesTo(SECONDS)
-        .convertDurationsTo(MILLISECONDS)
-        .build()
-        .start()
+  val metricRegistry = MetricRegistry()
+  JmxReporter.forRegistry(metricRegistry)
+    .convertRatesTo(SECONDS)
+    .convertDurationsTo(MILLISECONDS)
+    .build()
+    .start()
 
-    val apiServer = embeddedServer(Netty, port = 8080) {
-        install(DropwizardMetrics) {
-            baseName = "api.ktor.calls"
-            registry = metricRegistry
-        }
-        routing {
-            get("a") {
-                call.respond("a")
-            }
-            get("b") {
-                call.respond("b")
-            }
-        }
+  val apiServer = embeddedServer(Netty, port = 8080) {
+    install(DropwizardMetrics) {
+      baseName = "api.ktor.calls"
+      registry = metricRegistry
     }
-    apiServer.start()
-    log.info("Api Server started")
+    routing {
+      get("a") {
+        call.respond("a")
+      }
+      get("b") {
+        call.respond("b")
+      }
+    }
+  }
+  apiServer.start()
+  log.info("Api Server started")
 
-    val monotorServer = embeddedServer(Netty, port = 8081) {
-        // there is a conflict as jvm metrics is registerd by the ktor DropwizardMetrics
+  val monotorServer = embeddedServer(Netty, port = 8081) {
+    // there is a conflict as jvm metrics is registerd by the ktor DropwizardMetrics
 //        install(DropwizardMetrics) {
 //            baseName = "monitor.ktor.calls"
 //            registry = metricRegistry
 //        }
-        routing {
-            get("c") {
-                call.respond("c")
-            }
-            get("d") {
-                call.respond("d")
-            }
-        }
+    routing {
+      get("c") {
+        call.respond("c")
+      }
+      get("d") {
+        call.respond("d")
+      }
     }
-    monotorServer.start()
-    log.info("Monitor Server started")
+  }
+  monotorServer.start()
+  log.info("Monitor Server started")
 
 
 }

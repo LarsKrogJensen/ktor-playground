@@ -30,75 +30,77 @@ data class DataIn(val foo: String = "foooo", val bar: String, val xyz: Int? = nu
 
 @Serializable
 data class DataUt(
-    val foo: String,
-    val bar: String,
-    val xyz: Int? = null,
-    @Serializable(with = BigDecimalSerializer::class)
-    val bd: BigDecimal
+  val foo: String,
+  val bar: String,
+  val xyz: Int? = null,
+  @Serializable(with = BigDecimalSerializer::class)
+  val bd: BigDecimal
 )
 
 fun main() {
-    val server = embeddedServer(Netty, port = 8080) {
-        routing {
-            install(CallLogging) {
-                level = Level.INFO
+  val server = embeddedServer(Netty, port = 8080) {
+    routing {
+      install(CallLogging) {
+        level = Level.INFO
 
-            }
-            install(CallId) {
+      }
+      install(CallId) {
 //                retrieve {
 //                    it.request.queryParameters["callId"]
 //                }
-                header("XTracy") // header in & out
-                generate {
-                  UUID.randomUUID().toString()
-                }
-            }
-            install(ContentNegotiation) {
-                json(json = Json {
-                    prettyPrint = true
-                    ignoreUnknownKeys = true
-                    isLenient = true
-
-                })
-            }
-            install(StatusPages) {
-                exception<SerializationException> { ex ->
-                    call.respond(HttpStatusCode.BadRequest, mapOf("OK" to "false", "error" to ex.message))
-                }
-                exception<InvalidPropertiesFormatException> { ex ->
-                    call.respond(HttpStatusCode.Conflict, mapOf("OK" to "false", "error" to ex.message))
-                }
-                exception<Throwable> { t ->
-                    log.error("Oppppps", t)
-                    call.respond(HttpStatusCode.InternalServerError, "Opps ${t.message}")
-                }
-            }
-            post("json") {
-                val dataIn = call.receive<DataIn>()
-                call.respond(DataUt(foo = dataIn.foo, bar = dataIn.bar, xyz = dataIn.xyz, bd = BigDecimal.valueOf(123.23)))
-            }
-            get("bad") {
-                throw InvalidPropertiesFormatException("neeej")
-            }
-            route("nested") {
-                get {
-                    call.respond("nested get")
-                }
-                route("x") {
-                    get {
-                        call.respond("nested X get call Id: ${call.callId}")
-                    }
-                }
-            }
+        header("XTracy") // header in & out
+        generate {
+          UUID.randomUUID().toString()
         }
+      }
+      install(ContentNegotiation) {
+        json(json = Json {
+          prettyPrint = true
+          ignoreUnknownKeys = true
+          isLenient = true
+          coerceInputValues = true
+
+        })
+      }
+      install(StatusPages) {
+        exception<SerializationException> { ex ->
+          call.respond(HttpStatusCode.BadRequest, mapOf("OK" to "false", "error" to ex.message))
+        }
+        exception<InvalidPropertiesFormatException> { ex ->
+          call.respond(HttpStatusCode.Conflict, mapOf("OK" to "false", "error" to ex.message))
+        }
+        exception<Throwable> { t ->
+          log.error("Oppppps", t)
+          call.respond(HttpStatusCode.InternalServerError, "Opps ${t.message}")
+        }
+      }
+
+      post("json") {
+        val dataIn = call.receive<DataIn>()
+        call.respond(DataUt(foo = dataIn.foo, bar = dataIn.bar, xyz = dataIn.xyz, bd = BigDecimal.valueOf(123.23)))
+      }
+      get("bad") {
+        throw InvalidPropertiesFormatException("neeej")
+      }
+      route("nested") {
+        get {
+          call.respond("nested get")
+        }
+        route("x") {
+          get {
+            call.respond("nested X get call Id: ${call.callId}")
+          }
+        }
+      }
     }
-    server.start()
-//    server.stop()
-    log.info("Server started")
+  }
+  server.start()
+//  server.stop()
+  log.info("Server started")
 }
 
 internal object BigDecimalSerializer : KSerializer<BigDecimal> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BigDecimal", PrimitiveKind.STRING)
-    override fun serialize(encoder: Encoder, value: BigDecimal) = encoder.encodeString(value.toString())
-    override fun deserialize(decoder: Decoder): BigDecimal = BigDecimal(decoder.decodeString())
+  override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BigDecimal", PrimitiveKind.STRING)
+  override fun serialize(encoder: Encoder, value: BigDecimal) = encoder.encodeString(value.toString())
+  override fun deserialize(decoder: Decoder): BigDecimal = BigDecimal(decoder.decodeString())
 }

@@ -1,4 +1,4 @@
-import com.kambi.kazbi.kclient.KttpClient
+//import com.kambi.kazbi.kclient.KttpClient
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit
 private val log: Logger = LoggerFactory.getLogger("Main")
 
 fun main() {
-    val client = KttpClient.newClient()
-        .serviceLookup { "http://localhost:8080" }
-        .build()
+//    val client = KttpClient.newClient()
+//        .serviceLookup { "http://localhost:8080" }
+//        .build()
 
     val server = embeddedServer(Netty, port = 8080) {
         install(Compression) {
@@ -41,8 +41,8 @@ fun main() {
                 log.info("Handling call")
                 delay(Duration.ofMillis(100))
                 log.info("after delay")
-                val result = client.prepareGet().path("/nested").invoke<String>()
-                call.respondText(result)
+//                val result = client.prepareGet().path("/nested").invoke<String>()
+                call.respondText("OK")
             }
             get("/nested") {
                 log.info("Handling nested call")
