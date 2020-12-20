@@ -1,7 +1,5 @@
 import io.ktor.application.*
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
@@ -14,7 +12,7 @@ import java.security.KeyStore
 
 private val log: Logger = LoggerFactory.getLogger("Main")
 
-// run with curl: -v  --noproxy "*" --insecure --http2 https://localhost:8081/hello
+// run with curl -v  --noproxy "*" --insecure --http2 https://localhost:8081/hello
 fun main() {
     val keyStoreFile = File("test.jks")
     val keyStore = KeyStore.getInstance(keyStoreFile, "devhead".toCharArray())

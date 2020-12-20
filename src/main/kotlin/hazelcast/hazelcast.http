@@ -2,12 +2,15 @@ POST http://localhost:8080/post
 Content-Type: application/json
 
 {
-  "id": "a",
+  "id": "b",
   "version": 3,
-  "b": 10
+  "b": 10,
+  "more": {
+    "xxx": 8
+  }
 }
 
 ###
-GET http://localhost:8080/get?id=a
+GET http://localhost:8080/get?id=b
 
 

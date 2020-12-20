@@ -6,7 +6,10 @@ import com.hazelcast.core.Hazelcast
 import com.hazelcast.map.IMap
 import com.hazelcast.nio.ObjectDataInput
 import com.hazelcast.nio.ObjectDataOutput
+import com.hazelcast.nio.serialization.PortableReader
+import com.hazelcast.nio.serialization.PortableWriter
 import com.hazelcast.nio.serialization.StreamSerializer
+import com.hazelcast.nio.serialization.VersionedPortable
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -35,6 +38,11 @@ fun main() {
       SerializerConfig()
         .setImplementation(StuffSerializer)
         .setTypeClass(Stuff::class.java)
+    )
+    serializationConfig.addSerializerConfig(
+      SerializerConfig()
+        .setImplementation(MoreSerializer)
+        .setTypeClass(More::class.java)
     )
   }
   val hazelcast = Hazelcast.newHazelcastInstance(config)
@@ -81,7 +89,28 @@ data class Stuff(
   override val id: String,
   override val version: Int,
   val b: Int,
-) : Versionable, Identifiable<String>
+  val more: More
+) : Versionable, Identifiable<String> {
+
+//  override fun getFactoryId() = 1
+//
+//  override fun getClassId() = 12
+//
+//  override fun writePortable(writer: PortableWriter) {
+//    writer.writeUTF("id", id)
+//    writer.writeInt("v", version)
+//    writer.writeInt("b", b)
+//  }
+//
+//  override fun readPortable(reader: PortableReader) {
+////    id =
+//  }
+//
+//  override fun getClassVersion(): Int = 1
+}
+
+@Serializable
+data class More(val xxx: Int)
 
 object StuffSerializer : StreamSerializer<Stuff> {
   override fun getTypeId() = 123
@@ -90,13 +119,29 @@ object StuffSerializer : StreamSerializer<Stuff> {
     out.writeUTF(value.id)
     out.writeInt(value.version)
     out.writeInt(value.b)
+    out.writeObject(value.more)
   }
 
   override fun read(input: ObjectDataInput): Stuff {
     return Stuff(
       id = input.readUTF(),
       version = input.readInt(),
-      b = input.readInt()
+      b = input.readInt(),
+      more = input.readObject()
+    )
+  }
+}
+
+object MoreSerializer : StreamSerializer<More> {
+  override fun getTypeId() = 456
+
+  override fun write(out: ObjectDataOutput, value: More) {
+    out.writeInt(value.xxx)
+  }
+
+  override fun read(input: ObjectDataInput): More {
+    return More(
+      xxx = input.readInt(),
     )
   }
 }
