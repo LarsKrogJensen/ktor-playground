@@ -129,6 +129,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-bom</artifactId>
