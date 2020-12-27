@@ -37,6 +37,7 @@ fun main() {
 
     val server = embeddedServer(Netty, env) {
         runningLimit = 1000
+
     }
     server.start()
     log.info("Server started")
