@@ -6,6 +6,9 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.prometheus.client.CollectorRegistry
+import io.prometheus.client.dropwizard.DropwizardExports
+import io.prometheus.client.exporter.common.TextFormat
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit.MILLISECONDS
@@ -16,6 +19,7 @@ private val log: Logger = LoggerFactory.getLogger("Main")
 
 fun main() {
   val metricRegistry = MetricRegistry()
+  CollectorRegistry.defaultRegistry.register(DropwizardExports(metricRegistry))
   JmxReporter.forRegistry(metricRegistry)
     .convertRatesTo(SECONDS)
     .convertDurationsTo(MILLISECONDS)
@@ -28,7 +32,7 @@ fun main() {
       registry = metricRegistry
     }
     routing {
-      get("a") {
+      get("arne") {
         call.respond("a")
       }
       get("b") {
@@ -51,6 +55,13 @@ fun main() {
       }
       get("d") {
         call.respond("d")
+      }
+      get ("/metrics") {
+        call.respondTextWriter {
+          val filter = call.request.queryParameters.getAll("name[]")?.toSet() ?: setOf()
+          TextFormat.write004(this, CollectorRegistry.defaultRegistry.filteredMetricFamilySamples(filter))
+        }
+
       }
     }
   }
