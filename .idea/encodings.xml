@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T180528.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T180604.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T190548.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T190737.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T191206.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T191400.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T191525.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T191800.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T191908.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T193904.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T193916.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T193943.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T193951.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T194024.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T194029.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T200700.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T200729-1.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-12T203101.200.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.idea/httpRequests/2020-12-13T122405.200.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/kotlin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/kotlin/benchmark/serde/BetOfferTestBuilder.kt" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
