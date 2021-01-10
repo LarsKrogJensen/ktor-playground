@@ -19,6 +19,7 @@
     <junit.version>5.7.0</junit.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <tcnative.version>2.0.35.Final</tcnative.version>
+    <slf4j.version>1.7.30</slf4j.version>
   </properties>
 
   <dependencies>
@@ -42,6 +43,19 @@
       <groupId>org.jetbrains.kotlinx</groupId>
       <artifactId>kotlinx-serialization-json-jvm</artifactId>
       <version>${serialization.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-serialization-protobuf-jvm</artifactId>
+      <version>${serialization.version}</version>
+      <!--        <scope>runtime</scope>-->
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
 
     <dependency>
@@ -166,7 +180,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
       <dependency>
         <groupId>io.opentelemetry</groupId>
         <artifactId>opentelemetry-bom</artifactId>

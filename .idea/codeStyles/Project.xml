@@ -1,8 +1,5 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
-    <ElixirCodeStyleSettings>
-      <option name="ALIGN_PIPE_OPERANDS" value="false" />
-    </ElixirCodeStyleSettings>
     <JSCodeStyleSettings version="0">
       <option name="FIELD_PREFIX" value="" />
       <option name="IMPORT_PREFER_ABSOLUTE_PATH" value="TRUE" />
