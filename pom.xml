@@ -20,12 +20,19 @@
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     <tcnative.version>2.0.35.Final</tcnative.version>
     <slf4j.version>1.7.30</slf4j.version>
+    <jmh-core.version>1.19</jmh-core.version>
+    <jmh-generator.version>1.19</jmh-generator.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-reflect</artifactId>
       <version>${kotlin.version}</version>
     </dependency>
     <dependency>
@@ -148,6 +155,17 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${jmh-core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh-core.version}</version>
+    </dependency>
+
   </dependencies>
 
   <dependencyManagement>
@@ -220,6 +238,25 @@
         <artifactId>kotlin-maven-plugin</artifactId>
         <version>${kotlin.version}</version>
         <executions>
+          <execution>
+            <id>kapt</id>
+            <goals>
+              <goal>kapt</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>src/main/kotlin</sourceDir>
+              </sourceDirs>
+              <annotationProcessorPaths>
+                <!-- Specify your annotation processors here. -->
+                <annotationProcessorPath>
+                  <groupId>org.openjdk.jmh</groupId>
+                  <artifactId>jmh-generator-annprocess</artifactId>
+                  <version>${jmh-core.version}</version>
+                </annotationProcessorPath>
+              </annotationProcessorPaths>
+            </configuration>
+          </execution>
           <execution>
             <id>compile</id>
             <phase>process-sources</phase>
