@@ -3,6 +3,7 @@ package benchmark.serde
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
+import com.esotericsoftware.kryo.unsafe.UnsafeOutput
 import com.esotericsoftware.kryo.util.DefaultInstantiatorStrategy
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
@@ -35,7 +36,7 @@ open class ExecutionPlan {
     register(listOf<Int>()::class.java)
   }
 
-  val output = Output(16 * 1024)
+  val output = UnsafeOutput(16 * 1024)
 
   val js = Json {
     prettyPrint = false
