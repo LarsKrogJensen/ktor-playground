@@ -11,17 +11,21 @@
   <packaging>jar</packaging>
 
   <properties>
-    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>${maven.compiler.release}</maven.compiler.source>
+    <maven.compiler.target>${maven.compiler.release}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kotlin.version>1.4.21-2</kotlin.version>
-    <serialization.version>1.0.1</serialization.version>
-    <ktor.version>1.5.0</ktor.version>
-    <junit.version>5.7.0</junit.version>
+    <kotlin.version>1.6.10</kotlin.version>
+    <serialization.version>1.3.1</serialization.version>
+    <ktor.version>1.6.7</ktor.version>
+    <junit.version>5.8.2</junit.version>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-    <tcnative.version>2.0.35.Final</tcnative.version>
-    <slf4j.version>1.7.30</slf4j.version>
-    <jmh-core.version>1.19</jmh-core.version>
-    <jmh-generator.version>1.19</jmh-generator.version>
+    <tcnative.version>2.0.46.Final</tcnative.version>
+    <slf4j.version>1.7.32</slf4j.version>
+    <jmh-core.version>1.32</jmh-core.version>
+    <jmh-generator.version>1.27</jmh-generator.version>
+    <netty.version>4.1.72.Final</netty.version>
+    <micrometer.version>1.8.1</micrometer.version>
   </properties>
 
   <dependencies>
@@ -82,37 +86,47 @@
     </dependency>
 
     <dependency>
-      <groupId>io.prometheus</groupId>
-      <artifactId>simpleclient_dropwizard</artifactId>
-      <version>0.9.0</version>
+      <groupId>io.ktor</groupId>
+      <artifactId>ktor-metrics-micrometer</artifactId>
+      <version>${ktor.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>${micrometer.version}</version>
     </dependency>
     <dependency>
       <groupId>io.prometheus</groupId>
-      <artifactId>simpleclient_common</artifactId>
-      <version>0.9.0</version>
+      <artifactId>simpleclient_dropwizard</artifactId>
+      <version>0.12.0</version>
     </dependency>
+<!--    <dependency>-->
+<!--      <groupId>io.prometheus</groupId>-->
+<!--      <artifactId>simpleclient_common</artifactId>-->
+<!--      <version>0.10.0</version>-->
+<!--    </dependency>-->
 
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-api</artifactId>
-      <version>0.13.1</version>
+      <version>1.9.1</version>
     </dependency>
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk</artifactId>
-      <version>0.13.1</version>
+      <version>1.9.1</version>
     </dependency>
 
     <dependency>
       <groupId>com.hazelcast</groupId>
       <artifactId>hazelcast</artifactId>
-      <version>4.1.1</version>
+      <version>5.0</version>
     </dependency>
 
     <dependency>
       <groupId>com.esotericsoftware</groupId>
       <artifactId>kryo</artifactId>
-      <version>5.0.3</version>
+      <version>5.2.0</version>
     </dependency>
 
     <dependency>
@@ -135,7 +149,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
+      <version>1.2.8</version>
     </dependency>
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
@@ -165,6 +179,18 @@
       <artifactId>jmh-generator-annprocess</artifactId>
       <version>${jmh-core.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-transport-native-epoll</artifactId>
+      <version>${netty.version}</version>
+      <classifier>linux-x86_64</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>2.8.0</version>
+    </dependency>
 
   </dependencies>
 
@@ -177,24 +203,24 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlinx</groupId>
-        <artifactId>kotlinx-coroutines-bom</artifactId>
-        <version>1.4.2-native-mt</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+      <!--      <dependency>-->
+      <!--        <groupId>org.jetbrains.kotlinx</groupId>-->
+      <!--        <artifactId>kotlinx-coroutines-bom</artifactId>-->
+      <!--        <version>1.4.2-native-mt</version>-->
+      <!--        <type>pom</type>-->
+      <!--        <scope>import</scope>-->
+      <!--      </dependency>-->
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.7.0</version>
+        <version>${junit.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-bom</artifactId>
-        <version>4.1.56.Final</version>
+        <version>${netty.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -206,7 +232,7 @@
       <dependency>
         <groupId>io.opentelemetry</groupId>
         <artifactId>opentelemetry-bom</artifactId>
-        <version>0.13.1</version>
+        <version>0.15.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -214,7 +240,7 @@
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-bom</artifactId>
-        <version>4.1.16</version>
+        <version>4.1.17</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -343,5 +369,4 @@
       </build>
     </profile>
   </profiles>
-
 </project>

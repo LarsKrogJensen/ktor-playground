@@ -41,12 +41,12 @@ fun main() {
         val logger = loggerContext.getLogger(call.parameters["logger"])
         call.respondText("Logger ${logger.name}, Level: ${logger.level}", ContentType.Text.Plain)
       }
-      post<LoggerConf> { logConf ->
-        val loggerContext = LoggerFactory.getILoggerFactory() as LoggerContext
-        val logger = loggerContext.getLogger(logConf.logger)
-        logger.level = Level.toLevel(logConf.level)
-        call.respondText("Logger ${logger.name}, Level: ${logger.level}", ContentType.Text.Plain)
-      }
+//      post<LoggerConf> { logConf ->
+//        val loggerContext = LoggerFactory.getILoggerFactory() as LoggerContext
+//        val logger = loggerContext.getLogger(logConf.logger)
+//        logger.level = Level.toLevel(logConf.level)
+//        call.respondText("Logger ${logger.name}, Level: ${logger.level}", ContentType.Text.Plain)
+//      }
     }
   }
   server.start()

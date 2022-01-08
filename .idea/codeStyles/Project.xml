@@ -15,9 +15,6 @@
       <option name="FIELD_PREFIX" value="" />
       <option name="IMPORT_PREFER_ABSOLUTE_PATH" value="TRUE" />
     </TypeScriptCodeStyleSettings>
-    <XML>
-      <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
-    </XML>
     <codeStyleSettings language="JAVA">
       <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
       <indentOptions>

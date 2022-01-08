@@ -124,10 +124,10 @@ object StuffSerializer : StreamSerializer<Stuff> {
 
   override fun read(input: ObjectDataInput): Stuff {
     return Stuff(
-      id = input.readUTF(),
+      id = input.readString()!!,
       version = input.readInt(),
       b = input.readInt(),
-      more = input.readObject()
+      more = input.readObject()!!
     )
   }
 }
