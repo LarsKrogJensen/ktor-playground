@@ -7,6 +7,11 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="snapshots" />
+      <option name="name" value="libs-snapshots" />
+      <option name="url" value="https://artifactory.services.kambi.com/artifactory/kambi-repo" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="jcenter" />
       <option name="name" value="jcenter" />
       <option name="url" value="http://jcenter.bintray.com" />
@@ -27,9 +32,19 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="libs-releases" />
+      <option name="url" value="https://artifactory.services.kambi.com/artifactory/remote-repos" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="snapshots" />
       <option name="name" value="libs-snapshots" />
       <option name="url" value="http://artifactory.stho.dev.kambi.com/artifactory/kambi-repo" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="libs-releases" />
+      <option name="url" value="https://artifactory.services.kambi.com/artifactory/libs-releases" />
     </remote-repository>
   </component>
 </project>
